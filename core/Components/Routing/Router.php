@@ -4,7 +4,7 @@ namespace Aigletter\Framework\Components\Routing;
 
 use Aigletter\App\Controllers\HomeController;
 use Aigletter\App\Controllers\ShopController;
-use Aigletter\Framework\Interfaces\RouteInterface;
+use Aigletter\Contracts\Routing\RouteInterface;
 
 class Router implements RouteInterface
 {
