@@ -48,6 +48,7 @@ class Router implements RouteInterface
 
     protected function resolveParameters($reflectionMethod)
     {
+        $arguments = [];
         foreach ($reflectionMethod->getParameters() as $parameter) {
             $name = $parameter->getName();
             $type = $parameter->getType();

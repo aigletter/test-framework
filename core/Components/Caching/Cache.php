@@ -25,6 +25,18 @@ class Cache implements CacheInterface
         return $data[$key] ?? null;
     }
 
+    /**
+     * @param $key
+     * @param $value
+     * @return void
+     * @deprecated
+     * @todo Удалить в версии 2.0
+     */
+    public function put($key, $value)
+    {
+        // TODO
+    }
+
     public function set($key, $value, $ttl = null)
     {
         $content = file_get_contents($this->filename);
