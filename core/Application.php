@@ -8,6 +8,7 @@
 
 namespace Aigletter\Framework;
 
+use Aigletter\Framework\Base\Container;
 use Aigletter\Framework\Exceptions\GetComponentException;
 use Aigletter\Framework\Interfaces\RouteInterface;
 use Aigletter\Framework\Interfaces\RunnableInterface;
@@ -29,7 +30,7 @@ use Psr\SimpleCache\CacheInterface;
  * @property \Aigletter\Contracts\Routing\RouteInterface $router
  *
  */
-class Application implements RunnableInterface
+class Application extends Container implements RunnableInterface
 {
     /**
      * @var array
@@ -62,42 +63,8 @@ class Application implements RunnableInterface
     private function __construct(array $config)
     {
         $this->config = $config;
-    }
-
-    public function __get(string $name)
-    {
-        return $this->getComponent($name);
-    }
-
-    public function __call(string $name, array $arguments)
-    {
-        // TODO: Implement __call() method.
-    }
-
-    /**
-     * Метод создает с помощью фабрики экземпляр сервиса...
-     *
-     * @param string $key Ключ, под которым зарегистрирован сервис
-     * @return mixed
-     * @throws GetComponentException
-     */
-    public function getComponent($key)
-    {
-        if (isset($this->config['components'][$key]['factory'])) {
-            $factoryClass = $this->config['components'][$key]['factory'];
-            $arguments = $this->config['components'][$key]['arguments'] ?? [];
-            $factory = new $factoryClass($arguments);
-            $instance = $factory->createComponent();
-            return $instance;
-        }
-        /*$class = $this->config['components'][$key]['class'];
-        if (class_exists($class)) {
-            $instance = new $class();
-            return $instance;
-        }*/
-
-
-        throw new GetComponentException('Component not found');
+        $bindings = $config['components'] ?? [];
+        parent::__construct($bindings);
     }
 
     /**

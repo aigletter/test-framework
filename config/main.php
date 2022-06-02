@@ -1,6 +1,8 @@
 <?php
 
 use Aigletter\App\Components\Logging\LoggerFactory;
+use Aigletter\App\Components\Math\Math;
+use Aigletter\App\Components\Math\MathInterface;
 use Aigletter\App\Components\Test\TestFactory;
 
 return [
@@ -25,6 +27,19 @@ return [
                 LoggerFactory::KEY_FILEPATH => __DIR__ . '/../data/cache',
                 LoggerFactory::KEY_FILENAME => 'log.txt',
             ]
+        ],
+        \Psr\Log\LoggerInterface::class => [
+            'factory' => LoggerFactory::class,
+            'arguments' => [
+                LoggerFactory::KEY_FILEPATH => __DIR__ . '/../data/cache',
+                LoggerFactory::KEY_FILENAME => 'log.txt',
+            ]
+        ],
+        MathInterface::class => [
+            'class' => Math::class,
+            'arguments' => [
+                'mode' => 'not_strict'
+            ],
         ]
     ]
 ];
